@@ -18,4 +18,4 @@ function capitalize(str){
     return yell(str[0])+ String(str).slice(1).toLowerCase();
 }
 
-console.log(yell('howdy stranger ?'))
+//console.log(yell('howdy stranger ?'))

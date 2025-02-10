@@ -7,13 +7,15 @@ function sentence(arr){
 }
 
 function yell(str){
-    return String(str).toLocaleUpperCase;
+    return String(str).toUpperCase();
 }
 
 function whisper(str){
-    return '*'+String(str).toLocaleLowerCase+'*';
+    return '*'+String(str).toLowerCase()+'*';
 }
 
 function capitalize(str){
-    return yell(str[0])+ String(str).slice(1).toLocaleLowerCase;
+    return yell(str[0])+ String(str).slice(1).toLowerCase();
 }
+
+console.log(yell('howdy stranger ?'))

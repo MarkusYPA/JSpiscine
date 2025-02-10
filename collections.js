@@ -51,7 +51,7 @@ function strToSet(str) {
 
 function mapToObj(mp) {
     let obj = {};
-    for (const [key, value] of Object.entries(mp)) {
+    for (const [key, value] of mp) {    // both key and value in map
         obj[key] = value;
     }
     return obj;
@@ -67,7 +67,7 @@ function objToMap(obj) {
 
 function arrToObj(arr) {
     let obj = {};
-    for (const i in arr) {
+    for (let i = 0; i < arr.length; i++) {
         obj[i] = arr[i];
     }
     return obj;
@@ -75,19 +75,18 @@ function arrToObj(arr) {
 
 function strToObj(str) {
     let obj = {};
-    for (let i=0; i< str.length; i++) {
+    for (let i = 0; i < str.length; i++) {
         obj[i] = str[i];
     }
     return obj;
 }
 
 function superTypeOf(arg) {
-
     if (typeof arg == 'number') { return 'Number' }
     if (Number.isNaN(arg)) { return 'Number' }
     if (typeof arg == 'string') { return 'String' }
     if (typeof arg == 'boolean') { return 'Boolean' }
-    if (typeof arg == 'undefined') { return 'undefined' }    
+    if (typeof arg == 'undefined') { return 'undefined' }
     if (Array.isArray(arg)) { return 'Array' }
     if (Object.prototype.toString.call(arg) === '[object Object]') { return 'Object' }
     if (typeof arg == 'function') { return 'Function' }
@@ -95,10 +94,7 @@ function superTypeOf(arg) {
     if (arg instanceof Set) return 'Set';
 
     return 'Other';
-
-    //if (typeof arg != 'undefined') { return 'dunno what'}
-    //if (Boolean(arg)) {return 'truthy'}
-    //if (!Boolean(arg)) {return 'falsy'}
 }
 
 //console.log(arrToSet([1, 'ctx', 'ctx', 3, 3]))
+//console.log(mapToObj(new Map([['ctx', 'ctx'], ['a', 2],]),))

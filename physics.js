@@ -17,20 +17,16 @@ function getAcceleration(obj) {
     }
 
     if (fm) {
-        //console.log('here 0')
         return obj.f / obj.m;
     }
 
     if (vt) {
-        //console.log('here 1')
         return obj.Δv / obj.Δt;
     }
 
     if (dt) {
-        //console.log('here 2')
         return ((obj.d*2) / (obj.t**2));
     }
 }
-
 
 //console.log(getAcceleration(thing))

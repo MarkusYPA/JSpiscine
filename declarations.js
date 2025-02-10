@@ -11,7 +11,7 @@ const nested = {
     obj: {
         str: '',
         num: 0,
-        boo: false,
+        bool: false,
     },
 }
 

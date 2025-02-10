@@ -1,15 +1,17 @@
 
 function arrToSet(arr) {
     let st = new Set([]);
-    for (const e in arr) {
+    for (const e of arr) {  // OF and not IN
+        console.log(e)
         st.add(e);
     }
+
     return st;
 }
 
 function arrToStr(arr) {
     let str = '';
-    for (const e in arr) {
+    for (const e of arr) {
         str += e;
     }
     return str;
@@ -17,7 +19,7 @@ function arrToStr(arr) {
 
 function setToArr(st) {
     let arr = [];
-    for (const e in st) {
+    for (const e of st) {
         arr.push(e);
     }
     return arr;
@@ -25,7 +27,7 @@ function setToArr(st) {
 
 function setToStr(st) {
     let str = '';
-    for (const e in st) {
+    for (const e of st) {
         str += e;
     }
     return str;
@@ -33,7 +35,7 @@ function setToStr(st) {
 
 function strToArr(str) {
     let arr = [];
-    for (const e in str) {
+    for (const e of str) {
         arr.push(e);
     }
     return arr;
@@ -41,7 +43,7 @@ function strToArr(str) {
 
 function strToSet(str) {
     let st = new Set([]);
-    for (const e in str) {
+    for (const e of str) {
         st.add(e);
     }
     return st;
@@ -65,8 +67,8 @@ function objToMap(obj) {
 
 function arrToObj(arr) {
     let obj = {};
-    for (const e in arr) {
-        obj[e] = e;
+    for (const i in arr) {
+        obj[i] = arr[i];
     }
     return obj;
 }
@@ -97,7 +99,6 @@ function superTypeOf(arg) {
     //if (typeof arg != 'undefined') { return 'dunno what'}
     //if (Boolean(arg)) {return 'truthy'}
     //if (!Boolean(arg)) {return 'falsy'}
-
-
-
 }
+
+//console.log(arrToSet([1, 'ctx', 'ctx', 3, 3]))

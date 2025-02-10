@@ -1,7 +1,7 @@
 
 function arrToSet(arr) {
     let st = new Set([]);
-    for (const e of arr) {  // OF and not IN
+    for (const e of arr) {  // OF and not IN to get value
         console.log(e)
         st.add(e);
     }
@@ -67,7 +67,7 @@ function objToMap(obj) {
 
 function arrToObj(arr) {
     let obj = {};
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {  // Don't use of..in for arrays
         obj[i] = arr[i];
     }
     return obj;
@@ -87,13 +87,14 @@ function superTypeOf(arg) {
     if (typeof arg == 'string') { return 'String' }
     if (typeof arg == 'boolean') { return 'Boolean' }
     if (typeof arg == 'undefined') { return 'undefined' }
+    if (arg === null) { return 'null' } // strict equality
     if (Array.isArray(arg)) { return 'Array' }
     if (Object.prototype.toString.call(arg) === '[object Object]') { return 'Object' }
     if (typeof arg == 'function') { return 'Function' }
     if (arg instanceof Map) return 'Map';
     if (arg instanceof Set) return 'Set';
 
-    return 'Other';
+    return 'null';
 }
 
 //console.log(arrToSet([1, 'ctx', 'ctx', 3, 3]))

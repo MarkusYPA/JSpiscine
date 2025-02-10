@@ -1,4 +1,4 @@
-const escapeStr = '\'\\\/\"\'';     // actually: '\/"'"
+const escapeStr = '\`\\\/\"\'';     // actually: '\/"'
 const arr = [4, '2'];
 const obj = {
     str: '',

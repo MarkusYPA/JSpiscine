@@ -1,16 +1,16 @@
 
-function more(num) {
+export function more(num) {
     return num++;
 }
 
-function less(num) {
+export function less(num) {
     return num--;
 }
 
-function add(num1, num2) {
+export function add(num1, num2) {
     return num1 + num2;
 }
 
-function sub(num1, num2) {
+export function sub(num1, num2) {
     return num1 - num2;
 }

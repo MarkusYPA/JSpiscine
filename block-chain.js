@@ -6,11 +6,11 @@
     ).toString(36) */
 
 
-function blockChain(data, prev = { index: 0, hash: 0 }) {
+function blockChain(data, prev = { index: 0, hash: '0' }) {
     let newBlock = {};
     newBlock.index = prev.index + 1;
     let strToHash = String(newBlock.index) + prev.hash + JSON.stringify(data);
-    newBlock.hash = String(hashCode(strToHash));
+    newBlock.hash = hashCode(strToHash);
     newBlock.data = data;
     newBlock.prev = prev;
 

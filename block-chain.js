@@ -7,12 +7,12 @@
 
 
 function blockChain(data, prev = { index: 0, hash: 0 }) {
-    newBlock = {}
-    newBlock.index = prev.index + 1
-    let strToHash = String(newBlock.index) + prev.hash + JSON.stringify(data)
-    newBlock.hash = hashCode(strToHash)
-    newBlock.data = data
-    newBlock.prev = prev
+    let newBlock = {};
+    newBlock.index = prev.index + 1;
+    let strToHash = String(newBlock.index) + prev.hash + JSON.stringify(data);
+    newBlock.hash = hashCode(strToHash);
+    newBlock.data = data;
+    newBlock.prev = prev;
 
     // Doesn't work because it needs to take the 'this' as the second argument
     // and some later given value as the first
@@ -22,7 +22,7 @@ function blockChain(data, prev = { index: 0, hash: 0 }) {
         return blockChain(nextData, this); // `this` is the current block
     };
 
-    return newBlock
+    return newBlock;
 }
 
 /* 

@@ -10,7 +10,7 @@ function blockChain(data, prev = { index: 0, hash: 0 }) {
     let newBlock = {};
     newBlock.index = prev.index + 1;
     let strToHash = String(newBlock.index) + prev.hash + JSON.stringify(data);
-    newBlock.hash = hashCode(strToHash);
+    newBlock.hash = String(hashCode(strToHash));
     newBlock.data = data;
     newBlock.prev = prev;
 
@@ -31,6 +31,8 @@ console.log(first.index) //           -> 1
 console.log(first.data) //            -> { a: 1 }
 console.log(first.prev) //            -> { index: 0, hash: "0" }
 console.log(first.hash) //            -> '1103f27'
+console.log(typeof first.hash)
+
 console.log(hashCode('10{"a":1}')) // -> '1103f27'
 
 const second = first.chain({ hello: 'world' })

@@ -2,10 +2,8 @@
 function arrToSet(arr) {
     let st = new Set([]);
     for (const e of arr) {  // OF and not IN to get value
-        console.log(e)
         st.add(e);
     }
-
     return st;
 }
 
@@ -67,7 +65,7 @@ function objToMap(obj) {
 
 function arrToObj(arr) {
     let obj = {};
-    for (let i = 0; i < arr.length; i++) {  // Don't use of..in for arrays
+    for (let i = 0; i < arr.length; i++) {  // Don't use value..in for arrays
         obj[i] = arr[i];
     }
     return obj;

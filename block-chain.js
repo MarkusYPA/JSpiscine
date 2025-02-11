@@ -1,15 +1,15 @@
 
 // Will be added automatically:
-/* const hashCode = str =>
+const hashCode = str =>
     (
         [...str].reduce((h, c) => (h = (h << 5) - h + c.charCodeAt(0)) & h, 0) >>> 0
-    ).toString(36) */
+    ).toString(36)
 
 
 function blockChain(data, prev = { index: 0, hash: '0' }) {
     let newBlock = {};
     newBlock.index = prev.index + 1;
-    let strToHash = String(newBlock.index) + prev.hash + JSON.stringify(data);
+    let strToHash = newBlock.index + prev.hash + JSON.stringify(data);
     newBlock.hash = hashCode(strToHash);
     newBlock.data = data;
     newBlock.prev = prev;
@@ -19,14 +19,14 @@ function blockChain(data, prev = { index: 0, hash: '0' }) {
     //newBlock.chain = blockChain // NO PARENTHESES, so we don't call the function
 
     newBlock.chain = function (nextData) {
-        return blockChain(nextData, this); // `this` is the current block
-    };
+        return blockChain(nextData, this); // `this` is the block used when calling the function, might not work with an arrow function
+    }; 
 
     return newBlock;
 }
 
-/* 
-const first = blockChain({ a: 1 })
+
+/* const first = blockChain({ a: 1 })
 console.log(first.index) //           -> 1
 console.log(first.data) //            -> { a: 1 }
 console.log(first.prev) //            -> { index: 0, hash: "0" }

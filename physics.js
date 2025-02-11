@@ -24,9 +24,8 @@ function getAcceleration(obj) {
         return obj.Δv / obj.Δt;
     }
 
-    if (dt) {
-        return ((obj.d*2) / (obj.t**2));
-    }
+    return (obj.d * 2) / (obj.t ** 2);
+
 }
 
 //console.log(getAcceleration(thing))

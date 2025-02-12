@@ -11,7 +11,9 @@ function size(arr) {
 function partitions(target, min = 1, curPart = [], parts = []) {
     let sz = size(curPart);
     if (sz === target) {
-        parts.push(curPart);
+        if (target !== 0) { // special case
+            parts.push(curPart);
+        }        
         return;
     }
     if (sz < target) {
@@ -28,5 +30,6 @@ function sums(num) {
     return parts;
 }
 
+//console.log(sums(0))
 //console.log(sums(4))
 //console.log(sums(7))

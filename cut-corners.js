@@ -1,39 +1,59 @@
-/* const arraysEqual = require('./utilities');
-Math.round = Math.ceil = Math.floor = Math.trunc = undefined */
+//const arraysEqual = require('./utilities');
+//Math.round = Math.ceil = Math.floor = Math.trunc = undefined
 
 function round(num) {
     let addition = 0.5;
     if (num < 0) {
         addition = -0.5;
     }
-    return (num + addition / 1 | 0);
+    return divide(num + addition, 1);
 }
-
 function ceil(num) {
     let addition = 0.999;
     if (num < 0) {
         addition = 0.0;
     }
-    return (num + addition / 1 | 0);
+    return divide(num + addition, 1);
 }
-
 function floor(num) {
     let addition = 0.0;
     if (num < 0) {
-        addition = -1.0;
+        addition = -0.999;
     }
-    return (num + addition / 1 | 0);
+    return divide(num + addition, 1);
 }
-
 function trunc(num) {
-    return (num / 1 | 0);
+    //return divide(num, 1);
+
+    let counter = 0;
+    if (num > 0xfffffffff) {
+        num -= 0xfffffffff;
+        counter += 0xfffffffff;
+    }
+
+    let neg = false;
+    if (num < 0) {
+        neg = true;
+        num = -num;
+    }
+
+    let numCopy = num;
+    while (!(numCopy < 1 && numCopy > -1)) {
+        numCopy -= 1;
+        counter++;
+    }
+    if (neg) {
+        return -counter;
+    }
+    return counter;
 }
 
-/* console.log(divide(0,1))
-console.log(divide(-3,1))
-console.log(divide(3,1))
-console.log(divide(-3.53,1))
-console.log(divide(3.23,1))
+/* console.log(divide(0, 1))
+console.log(divide(-3, 1))
+console.log(divide(3, 1))
+console.log(divide(-3.53, 1))
+console.log(divide(3.23, 1))
+//console.log(divide(Number.MAX_SAFE_INTEGER, 1))
 
 const nums1 = [3.7, -3.7, 3.1, -3.1]
 console.log(nums1)
@@ -45,7 +65,6 @@ console.log(nums1.map(trunc)) // [ 3, -3, 3, -3 ]
 const nums = [Math.PI, -Math.PI, Math.E, -Math.E, 0];
 console.log(arraysEqual(nums.map(round), [3, -3, 3, -3, 0]));
 console.log(arraysEqual(nums.map(ceil), [4, -3, 3, -2, 0]));
-console.log(nums.map(ceil), [4, -3, 3, -2, 0]);
 console.log(arraysEqual(nums.map(floor), [3, -4, 2, -3, 0]));
 console.log(arraysEqual(nums.map(trunc), [3, -3, 2, -2, 0])); */
 

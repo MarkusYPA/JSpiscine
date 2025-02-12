@@ -1,5 +1,5 @@
-const add4 = '+4'
-const mul2 = '*2'
+// const add4 = '+4'
+// const mul2 = '*2'
 
 //const paths = new Map();
 
@@ -8,7 +8,7 @@ function findExpression(num) {
         return undefined;
     }
 
-    return findIt(num, 1, '1 ');
+    return findIt(num, 1, '1');
 }
 
 function findIt(target, value, curPath) {
@@ -30,7 +30,7 @@ function findIt(target, value, curPath) {
     return path2;
 }
 
-//console.log(findExpression(8));
+//console.log(findExpression(8).slice(2).split(' '));
 
 /* console.log(findExpression(14));
 

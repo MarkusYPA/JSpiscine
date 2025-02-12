@@ -1,17 +1,17 @@
-/* const add4 = '+4'
+const add4 = '+4'
 const mul2 = '*2'
 
-const paths = new Map(); */
+//const paths = new Map();
 
 function findExpression(num) {
     if ((num + 1) % 4 == 0) {
         return undefined;
     }
 
-    return findIt(num);
+    return findIt(num, 1, '1 ');
 }
 
-function findIt(target, value = 1, curPath = '') {
+function findIt(target, value, curPath) {
     if (value == target) {
         return curPath;
     }
@@ -30,6 +30,7 @@ function findIt(target, value = 1, curPath = '') {
     return path2;
 }
 
+//console.log(findExpression(8));
 
 /* console.log(findExpression(14));
 

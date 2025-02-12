@@ -1,6 +1,5 @@
-const arraysEqual = require('./utilities');
-Math.round = Math.ceil = Math.floor = Math.trunc = undefined
-
+/* const arraysEqual = require('./utilities');
+Math.round = Math.ceil = Math.floor = Math.trunc = undefined */
 
 function round(num) {
     let addition = 0.5;
@@ -30,7 +29,7 @@ function trunc(num) {
     return divide(num, 1);
 }
 
-console.log(divide(0,1))
+/* console.log(divide(0,1))
 console.log(divide(-3,1))
 console.log(divide(3,1))
 console.log(divide(-3.53,1))
@@ -47,7 +46,7 @@ const nums = [Math.PI, -Math.PI, Math.E, -Math.E, 0];
 console.log(arraysEqual(nums.map(round), [3, -3, 3, -3, 0]));
 console.log(arraysEqual(nums.map(ceil), [4, -3, 3, -2, 0]));
 console.log(arraysEqual(nums.map(floor), [3, -4, 2, -3, 0]));
-console.log(arraysEqual(nums.map(trunc), [3, -3, 2, -2, 0]));
+console.log(arraysEqual(nums.map(trunc), [3, -3, 2, -2, 0])); */
 
 function divide(a, b) {
     if (b == 0) {

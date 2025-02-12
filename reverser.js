@@ -5,14 +5,14 @@ function reverse(arr) {
     if (Array.isArray(arr)) {
         for (let i = 0; i<(arr.length/2)-1; i++) {
             // Ye old XOR swap
-            arr[i] = arr[arr.length-1-i] ^ arr[i];
-            arr[arr.length-1-i] = arr[i] ^arr[arr.length-1-i]
-            arr[i] = arr[arr.length-1-i] ^ arr[i];
+            //arr[i] = arr[arr.length-1-i] ^ arr[i];
+            //arr[arr.length-1-i] = arr[i] ^arr[arr.length-1-i]
+            //arr[i] = arr[arr.length-1-i] ^ arr[i];
     
             // More obvious way
-            //const temp = arr[i];
-            //arr[i] = arr[arr.length-1-i];
-            //arr[arr.length-1-i] = temp;
+            const temp = arr[i];
+            arr[i] = arr[arr.length-1-i];
+            arr[arr.length-1-i] = temp;
         }
     }
 
@@ -20,10 +20,6 @@ function reverse(arr) {
         result = '';
         for (let i = arr.length-1; i>=0; i--) {
             result += arr[i]
-        }
-        
-        for (let i = 0; i < arr.length; i++) {
-            arr[i] = result[i];
         }
         arr = result;
     }

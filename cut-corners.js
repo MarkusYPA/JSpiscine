@@ -6,15 +6,15 @@ function round(num) {
     if (num < 0) {
         addition = -0.5;
     }
-    return divide(num + addition, 1);
+    return (num + addition / 1 | 0);
 }
 
 function ceil(num) {
-    let addition = 1.0;
+    let addition = 0.999;
     if (num < 0) {
         addition = 0.0;
     }
-    return divide(num + addition, 1);
+    return (num + addition / 1 | 0);
 }
 
 function floor(num) {
@@ -22,11 +22,11 @@ function floor(num) {
     if (num < 0) {
         addition = -1.0;
     }
-    return divide(num + addition, 1);
+    return (num + addition / 1 | 0);
 }
 
 function trunc(num) {
-    return divide(num, 1);
+    return (num / 1 | 0);
 }
 
 /* console.log(divide(0,1))
@@ -45,6 +45,7 @@ console.log(nums1.map(trunc)) // [ 3, -3, 3, -3 ]
 const nums = [Math.PI, -Math.PI, Math.E, -Math.E, 0];
 console.log(arraysEqual(nums.map(round), [3, -3, 3, -3, 0]));
 console.log(arraysEqual(nums.map(ceil), [4, -3, 3, -2, 0]));
+console.log(nums.map(ceil), [4, -3, 3, -2, 0]);
 console.log(arraysEqual(nums.map(floor), [3, -4, 2, -3, 0]));
 console.log(arraysEqual(nums.map(trunc), [3, -3, 2, -2, 0])); */
 

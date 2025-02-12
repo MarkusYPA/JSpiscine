@@ -1,4 +1,5 @@
 //Array.prototype.flat = undefined
+'use strict';
 
 // remove a given number of levels from array, starting from the base level
 function flat(arr, toRemove = 1) {
@@ -12,7 +13,7 @@ function flat(arr, toRemove = 1) {
     let newArray = [];
     for (let i = 0; i< arr.length; i++) {
         if (Array.isArray(arr[i])) {
-            for (e of arr[i]) {
+            for (let e of arr[i]) {
                 newArray.push(e);
             }
         } else {

@@ -18,7 +18,7 @@ function partitions(target, min = 1, curPart = [], parts = []) {
     }
     if (sz < target) {
         for (let i = min; i < target; i++) {
-            let newPart = [...curPart, i];  // New current path, so same doesn't get modified
+            let newPart = [...curPart, i];  // New current path with shallow copy, so old doesn't get modified
             partitions(target, i, newPart, parts);
         }
     }

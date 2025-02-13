@@ -4,7 +4,6 @@ function groupPrice(str) {
     const re = /(USD|\$)\d+\.\d\d/g;
     const reDoll = /(?<=(USD|\$))\d+/g;
     const reCent = /(?<=\.)\d{2}/g;
-
     
     let matches = String(str).match(re);
     if (matches == null) {

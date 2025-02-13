@@ -46,22 +46,32 @@ function wordFits(puzzle, word, coordinates) {
 
     // try horizontal (right only)
     let success = true;
+
+    //console.log(word, coordinates)
+
     for (let i = 0; i < word.length; i++) {
         let row = coordinates[0];
         let col = coordinates[1] + i;
+        if (row > puzzle.length-1 || col > puzzle[0].length){
+            success = false;
+            break;
+        }
+
         let cell = puzzle[row][col];
         if (!(cell == 2 || cell == 1 || cell == 0 || cell == word[i])) {
             success = false;
-        }
+        }       
+
         if (i == word.length - 1) {
             if (col+1 > puzzle[0].length-1) {
                 lastPlusOne = undefined;
             } else {
                 lastPlusOne = puzzle[row][col+1]
             }   
-        }
+        }        
     }
-    if (lastPlusOne != '.' || lastPlusOne != undefined) {
+
+    if (!(lastPlusOne != '.' || lastPlusOne != undefined)) {
         success = false;
     }
     if (success) {
@@ -73,6 +83,11 @@ function wordFits(puzzle, word, coordinates) {
     for (let i = 0; i < word.length; i++) {
         let row = coordinates[0] + i;
         let col = coordinates[1];
+        if (row > puzzle.length-1 || col > puzzle[0].length){
+            success = false;
+            break;
+        }
+
         let cell = puzzle[row][col];
         if (!(cell == 2 || cell == 1 || cell == 0 || cell == word[i])) {
             success = false;
@@ -85,7 +100,7 @@ function wordFits(puzzle, word, coordinates) {
             }            
         }
     }
-    if (lastPlusOne != '.' || lastPlusOne != undefined) {
+    if (!(lastPlusOne != '.' || lastPlusOne != undefined)) {
         success = false;
     }
     if (success) {
@@ -96,9 +111,13 @@ function wordFits(puzzle, word, coordinates) {
 }
 
 function updatePuzzle(puzzle, word, coordinates, direction) {
-    let newPuzzle = [...puzzle];
-    // TODO: Write word into puzzle
-    // return a shallow copy
+    // Create shallow copy line by line so original lines don't
+    // get modified
+    let newPuzzle = [];
+    for (let line of puzzle) {
+        let newLine = [...line];
+        newPuzzle.push(newLine);
+    }
 
     let rowAdd = 0;
     let colAdd = 0;
@@ -109,7 +128,6 @@ function updatePuzzle(puzzle, word, coordinates, direction) {
     if (direction == 'right') {
         colAdd = 1;
     }
-
 
     for (let i = 0; i < word.length; i++) {
         let row = coordinates[0] + i * rowAdd;  // +i happens when down
@@ -148,7 +166,7 @@ function crosswordSolver(emptyPuzzle, words) {
 
     function solver(puzzle, words, startIndex) {
 
-        console.log("solver running");
+        console.log("solver:", words);
 
         // Too many solutions, abort
         if (solutions.length > 1) {
@@ -168,19 +186,18 @@ function crosswordSolver(emptyPuzzle, words) {
         for (let i = 0; i < words.length; i++) {
             let word = words[i];
             const directions = wordFits(puzzle, word, startCoords);
-            console.log(directions);
 
             if (directions) {
                 for (let direction of directions) {
-                    let newPuzzle = updatePuzzle(puzzle, word, startCoords, direction);
-                    let newWords = words.slice(0, i).concat(word.slice(i + 1)) // remove this word
+                    let newPuzzle = updatePuzzle(puzzle, word, startCoords, direction);                    
+                    let newWords = words.slice(0, i).concat(words.slice(i + 1)) // remove this word
                     solver(newPuzzle, newWords, startIndex);
                 }
-            }
-
-            
+            }            
         }
     }
+
+    // Make sure found solutions aren't the same?
 
     if (solutions.length != 1) {
         console.log(solutions);
@@ -192,8 +209,8 @@ function crosswordSolver(emptyPuzzle, words) {
     // - sun and sunglasses/suncream must not have same start and direction
     // - if words must take all available space we're ok
 
-    for (line of puzzle) {
-        for (char of line) {
+    for (let line of puzzle) {
+        for (let char of line) {
             process.stdout.write(char);
         }
         console.log();

@@ -1,5 +1,6 @@
 function arraysEqual(a, b) {
     if (a === b) return true;
+    if (a == null && b == null) return true; // maybe ok?
     if (a == null || b == null) return false;
     if (a.length !== b.length) return false;
 
@@ -11,5 +12,7 @@ function arraysEqual(a, b) {
     }
     return true;
 }
+
+
 
 module.exports = arraysEqual;

@@ -185,13 +185,54 @@ function uniqueSolution(solutions, puzzle) {
     return true;
 }
 
-function crosswordSolver(emptyPuzzle, words) {
+// move solver inside crosswordSolver to not have to pass 'solutions' and 'allStartCoordinates' to it?
+function solver(currentPuzzle, words, startIndex, solutions, allStartCoordinates) {
+
+    // Too many solutions, abort
+    if (solutions.length > 1) {
+        return;
+    }
+
+    // Solution complete, end here        
+    if (words.length == 0) { // Checking with (words.length == 0) or startIndex > allStartCoordinates.length - 1?
+        // Start positions with '2' will spawn duplicate solutions so check uniqueness
+        if (uniqueSolution(solutions, currentPuzzle)) {
+            solutions.push(currentPuzzle);
+        }
+        return;
+    }
+
+    // Words remain, keep going
+    let startCoords = allStartCoordinates[startIndex];
+    startIndex++;
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+        const directions = wordFits(currentPuzzle, word, startCoords);
+
+        for (let direction of directions) {
+            let newPuzzle = updatePuzzle(currentPuzzle, word, startCoords, direction); // write word into current puzzle
+            let newWords = words.slice(0, i).concat(words.slice(i + 1)) // remove word from array
+            solver(newPuzzle, newWords, startIndex, solutions, allStartCoordinates);
+        }
+    }
+}
+
+function printPuzzle(arrayPuzzle){
+    for (let line of arrayPuzzle) {
+        for (let char of line) {
+            process.stdout.write(char);
+        }
+        console.log();
+    }
+}
+
+function crosswordSolver(stringPuzzle, words) {
     // TODO?: Check words
     // - is it an array (of stings)
     // - duplicate words
 
     // Puzzle to an array of character arrays for mutability
-    let puzzle = createArrayPuzzle(emptyPuzzle);
+    let arrayPuzzle = createArrayPuzzle(stringPuzzle);
     // TODO: Check input puzzle: 
     // - Do we check if it's a string?
     // - not empty
@@ -199,58 +240,22 @@ function crosswordSolver(emptyPuzzle, words) {
     // - lines must be same length
     // - don't allow: more cells than chars in words
 
-    let allStartCoordinates = getStartCoordinates(puzzle);
+    let allStartCoordinates = getStartCoordinates(arrayPuzzle);
     if (allStartCoordinates.length != words.length) {
         console.log("Error");
         return;
-    }
+    }    
 
+    // solver() finds solutions
     let solutions = [];
-
-    // start solver function to find solutions
-    solver(puzzle, words, 0)
-
-    function solver(puzzle, words, startIndex) {
-        // Too many solutions, abort
-        if (solutions.length > 1) {
-            return;
-        }
-
-        // Solution complete, end here        
-        if (startIndex > allStartCoordinates.length - 1) { // How about checking with (words.length == 0)?
-            // Start positions with '2' will spawn duplicate solutions so check uniqueness
-            if (uniqueSolution(solutions, puzzle)) {
-                solutions.push(puzzle);
-            }
-            return;
-        }
-
-        // Words remain, so go on
-        let startCoords = allStartCoordinates[startIndex];
-        startIndex++;
-        for (let i = 0; i < words.length; i++) {
-            let word = words[i];
-            const directions = wordFits(puzzle, word, startCoords);
-
-            for (let direction of directions) {
-                let newPuzzle = updatePuzzle(puzzle, word, startCoords, direction); // write word into puzzle
-                let newWords = words.slice(0, i).concat(words.slice(i + 1)) // remove word from array
-                solver(newPuzzle, newWords, startIndex);
-            }
-        }
-    }
+    solver(arrayPuzzle, words, 0, solutions, allStartCoordinates)
 
     if (solutions.length != 1) {
         console.log("Error");
         return;
     }
 
-    for (let line of solutions[0]) {
-        for (let char of line) {
-            process.stdout.write(char);
-        }
-        console.log();
-    }
+    printPuzzle(solutions[0]);
 }
 
 crosswordSolver(puzzle, words);

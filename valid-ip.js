@@ -1,9 +1,9 @@
 // 'use strict';
-// const arraysEqual = require('./utilities');
+//const arraysEqual = require('./utilities');
 
 function findIP(str) {
-    // one to three numbers either 100-299, 10-99 or 1-9, then repeat thrice: dot and same numbers) or (0.0.0.0) followed by ?, w-space, : or end, optionally ':' and numbers.
-    const re = /(([1-2][0-9][0-9]|[1-9][0-9]|[1-9])\.([1-2][0-9][1-9]|[1-9][0-9]|[1-9])\.([1-2][0-9][0-9]|[1-9][0-9]|[1-9])\.([1-2][0-9][0-9]|[1-9][0-9]|[1-9])|(0\.0\.0\.0))(?=(\?|\s|:|$))(:[0-9]+)?/g;
+    // (one to three numbers either 100-299, 10-99 or 1-9, then repeat thrice: dot and same numbers) or (0.0.0.0) followed by (?, w-space, : or end), optionally (':' and numbers).
+    const re = /(([1-2][0-9][0-9]|[1-9][0-9]|[1-9])(\.([1-2][0-9][1-9]|[1-9][0-9]|[1-9])){3}|(0\.0\.0\.0))(?=(\?|\s|:|$))(:[0-9]+)?/g;
 
     let matches = String(str).match(re)
 
@@ -47,8 +47,8 @@ const $findIP = [
     '255.253.123.2:8000',
     '192.168.1.123',
     '0.0.0.0',
-]
+] */
 
 // console.log(findIP(dataSet));
 // console.log($findIP);
-console.log(arraysEqual(findIP(dataSet), $findIP)) */
+//console.log(arraysEqual(findIP(dataSet), $findIP))

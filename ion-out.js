@@ -1,5 +1,5 @@
 function ionOut(str) {
-    //every >letters> +'t' followed by 'ion'
+    //every <string-of-letters> +'t' followed by 'ion'
     const re = /[a-zA-A]*t(?=ion)/g;
 
     let matches = str.match(re);

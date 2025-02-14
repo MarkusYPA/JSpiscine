@@ -80,7 +80,7 @@ function wordFits(puzzle, word, coordinates) {
             success = false;
         }
 
-        // save value of place before word
+        // save value of cell before word
         if (i == 0) {
             if (col - 1 < 0) {
                 beforeFirst = undefined;
@@ -89,7 +89,7 @@ function wordFits(puzzle, word, coordinates) {
             }
         }
 
-        // save value of place after word
+        // save value of cell after word
         if (i == word.length - 1) {
             if (col + 1 > puzzle[0].length - 1) {
                 afterLast = undefined;
@@ -124,7 +124,7 @@ function wordFits(puzzle, word, coordinates) {
             success = false;
         }
 
-        // save value of place before word
+        // save value of cell before word
         if (i == 0) {
             if (row - 1 < 0) {
                 beforeFirst = undefined;
@@ -133,7 +133,7 @@ function wordFits(puzzle, word, coordinates) {
             }
         }
 
-        // save value of place after word
+        // save value of cell after word
         if (i == word.length - 1) {
             if (row + 1 > puzzle.length - 1) {
                 afterLast = undefined;

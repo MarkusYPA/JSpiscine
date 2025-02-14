@@ -42,17 +42,16 @@ function getStartCoordinates(puzzle) {
 
 function wordFits(puzzle, word, coordinates) {
     let directions = [];
-    let lastPlusOne = '';
+    let beforeFirst = '';
+    let afterLast = '';
 
-    // try horizontal (right only)
+
+    // try horizontal (right)
     let success = true;
-
-    //console.log(word, coordinates)
-
     for (let i = 0; i < word.length; i++) {
         let row = coordinates[0];
         let col = coordinates[1] + i;
-        if (row > puzzle.length-1 || col > puzzle[0].length){
+        if (row > puzzle.length - 1 || col > puzzle[0].length) {
             success = false;
             break;
         }
@@ -60,30 +59,43 @@ function wordFits(puzzle, word, coordinates) {
         let cell = puzzle[row][col];
         if (!(cell == 2 || cell == 1 || cell == 0 || cell == word[i])) {
             success = false;
-        }       
+        }
 
-        if (i == word.length - 1) {
-            if (col+1 > puzzle[0].length-1) {
-                lastPlusOne = undefined;
+        // save value of place before word
+        if (i == 0) {
+            if (col - 1 < 0) {
+                beforeFirst = undefined;
             } else {
-                lastPlusOne = puzzle[row][col+1]
-            }   
-        }        
-    }
+                beforeFirst = puzzle[row][col - 1]
+            }
+        }
 
-    if (!(lastPlusOne != '.' || lastPlusOne != undefined)) {
+        // save value of place after word
+        if (i == word.length - 1) {
+            if (col + 1 > puzzle[0].length - 1) {
+                afterLast = undefined;
+            } else {
+                afterLast = puzzle[row][col + 1]
+            }
+        }
+    }
+    // No fit if theres room before or after the word
+    if (!(beforeFirst == '.' || beforeFirst == undefined) || !(afterLast == '.' || afterLast == undefined)) {
         success = false;
     }
+
     if (success) {
         directions.push('right')
     }
 
-    // try vertical (down only)
+    // try vertical (down)
+    beforeFirst = '';
+    afterLast = '';
     success = true;
     for (let i = 0; i < word.length; i++) {
         let row = coordinates[0] + i;
         let col = coordinates[1];
-        if (row > puzzle.length-1 || col > puzzle[0].length){
+        if (row > puzzle.length - 1 || col > puzzle[0].length) {
             success = false;
             break;
         }
@@ -92,17 +104,30 @@ function wordFits(puzzle, word, coordinates) {
         if (!(cell == 2 || cell == 1 || cell == 0 || cell == word[i])) {
             success = false;
         }
-        if (i == word.length - 1) {
-            if (row+1 > puzzle.length-1) {
-                lastPlusOne = undefined;
+
+        // save value of place before word
+        if (i == 0) {
+            if (row - 1 < 0) {
+                beforeFirst = undefined;
             } else {
-                lastPlusOne = puzzle[row + 1][col]
-            }            
+                beforeFirst = puzzle[row - 1][col]
+            }
+        }
+
+        // save value of place after word
+        if (i == word.length - 1) {
+            if (row + 1 > puzzle.length - 1) {
+                afterLast = undefined;
+            } else {
+                afterLast = puzzle[row + 1][col]
+            }
         }
     }
-    if (!(lastPlusOne != '.' || lastPlusOne != undefined)) {
+    // No fit if theres room before or after the word
+    if (!(beforeFirst == '.' || beforeFirst == undefined) || !(afterLast == '.' || afterLast == undefined)) {
         success = false;
     }
+
     if (success) {
         directions.push('down')
     }
@@ -111,23 +136,16 @@ function wordFits(puzzle, word, coordinates) {
 }
 
 function updatePuzzle(puzzle, word, coordinates, direction) {
-    // Create shallow copy line by line so original lines don't
-    // get modified
+    // Shallow copy line by line so original lines don't get modified
     let newPuzzle = [];
     for (let line of puzzle) {
         let newLine = [...line];
         newPuzzle.push(newLine);
     }
 
-    let rowAdd = 0;
-    let colAdd = 0;
-
-    if (direction == 'down') {
-        rowAdd = 1;
-    }
-    if (direction == 'right') {
-        colAdd = 1;
-    }
+    let [rowAdd, colAdd] = [0, 0];
+    if (direction == 'down') rowAdd = 1;
+    if (direction == 'right') colAdd = 1;
 
     for (let i = 0; i < word.length; i++) {
         let row = coordinates[0] + i * rowAdd;  // +i happens when down
@@ -136,6 +154,16 @@ function updatePuzzle(puzzle, word, coordinates, direction) {
     }
 
     return newPuzzle;
+}
+
+function uniqueSolution(solutions, puzzle) {
+    let jsonString = JSON.stringify(puzzle);
+    for (let sol of solutions) {
+        if (jsonString == JSON.stringify(sol)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function crosswordSolver(emptyPuzzle, words) {
@@ -148,7 +176,7 @@ function crosswordSolver(emptyPuzzle, words) {
     // TODO: Check input puzzle: 
     // - Do we check if it's a string?
     // - not empty
-    // - allow: 0, 1, 2 and .)
+    // - allow: 0, 1, 2 and .
     // - lines must be same length
     // - don't allow: more cells than chars in words
 
@@ -161,12 +189,11 @@ function crosswordSolver(emptyPuzzle, words) {
     let solutions = [];
 
 
-
+    // start solver function to find solutions
     solver(puzzle, words, 0)
 
     function solver(puzzle, words, startIndex) {
-
-        console.log("solver:", words);
+        //console.log("solver:", words);
 
         // Too many solutions, abort
         if (solutions.length > 1) {
@@ -176,7 +203,10 @@ function crosswordSolver(emptyPuzzle, words) {
         // Solution complete, end here
         // What about checking with (words.length == 0)?
         if (startIndex > starts.length - 1) {
-            solutions.push(puzzle);
+            // Start positions with '2' will spawn duplicate solutions so check uniqueness
+            if (uniqueSolution(solutions, puzzle)) {
+                solutions.push(puzzle);
+            }            
             return;
         }
 
@@ -189,17 +219,16 @@ function crosswordSolver(emptyPuzzle, words) {
 
             if (directions) {
                 for (let direction of directions) {
-                    let newPuzzle = updatePuzzle(puzzle, word, startCoords, direction);                    
+                    let newPuzzle = updatePuzzle(puzzle, word, startCoords, direction);
                     let newWords = words.slice(0, i).concat(words.slice(i + 1)) // remove this word
                     solver(newPuzzle, newWords, startIndex);
                 }
-            }            
+            }
         }
     }
 
-    // Make sure found solutions aren't the same?
-
     if (solutions.length != 1) {
+        console.log("solutions:");
         console.log(solutions);
         console.log("Error 1");
         return;
@@ -209,7 +238,7 @@ function crosswordSolver(emptyPuzzle, words) {
     // - sun and sunglasses/suncream must not have same start and direction
     // - if words must take all available space we're ok
 
-    for (let line of puzzle) {
+    for (let line of solutions[0]) {
         for (let char of line) {
             process.stdout.write(char);
         }

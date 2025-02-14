@@ -1,10 +1,28 @@
 'use strict';
 
-const emptyPuzzle = `2001
-0..0
-1000
-0..0`
-const words = ['casa', 'alan', 'ciao', 'anta']
+const puzzle = `..1.1..1...
+10000..1000
+..0.0..0...
+..1000000..
+..0.0..0...
+1000..10000
+..0.1..0...
+....0..0...
+..100000...
+....0..0...
+....0......`
+const words = [
+    'popcorn',
+    'fruit',
+    'flour',
+    'chicken',
+    'eggs',
+    'vegetables',
+    'pasta',
+    'pork',
+    'steak',
+    'cheese',
+]
 
 function createArrayPuzzle(emptyPuzzle) {
     let stringLines = String(emptyPuzzle).split(/\r?\n/);
@@ -45,6 +63,7 @@ function wordFits(puzzle, word, coordinates) {
     let beforeFirst = '';
     let afterLast = '';
 
+    // horizontal and vertical tries are quite repetitive. Can we improve?
 
     // try horizontal (right)
     let success = true;
@@ -180,63 +199,51 @@ function crosswordSolver(emptyPuzzle, words) {
     // - lines must be same length
     // - don't allow: more cells than chars in words
 
-    let starts = getStartCoordinates(puzzle);
-    if (starts.length != words.length) {
-        console.log("Error 0");
+    let allStartCoordinates = getStartCoordinates(puzzle);
+    if (allStartCoordinates.length != words.length) {
+        console.log("Error");
         return;
     }
 
     let solutions = [];
 
-
     // start solver function to find solutions
     solver(puzzle, words, 0)
 
     function solver(puzzle, words, startIndex) {
-        //console.log("solver:", words);
-
         // Too many solutions, abort
         if (solutions.length > 1) {
             return;
         }
 
-        // Solution complete, end here
-        // What about checking with (words.length == 0)?
-        if (startIndex > starts.length - 1) {
+        // Solution complete, end here        
+        if (startIndex > allStartCoordinates.length - 1) { // How about checking with (words.length == 0)?
             // Start positions with '2' will spawn duplicate solutions so check uniqueness
             if (uniqueSolution(solutions, puzzle)) {
                 solutions.push(puzzle);
-            }            
+            }
             return;
         }
 
-        // Words remain, so we go on
-        let startCoords = starts[startIndex];
+        // Words remain, so go on
+        let startCoords = allStartCoordinates[startIndex];
         startIndex++;
         for (let i = 0; i < words.length; i++) {
             let word = words[i];
             const directions = wordFits(puzzle, word, startCoords);
 
-            if (directions) {
-                for (let direction of directions) {
-                    let newPuzzle = updatePuzzle(puzzle, word, startCoords, direction);
-                    let newWords = words.slice(0, i).concat(words.slice(i + 1)) // remove this word
-                    solver(newPuzzle, newWords, startIndex);
-                }
+            for (let direction of directions) {
+                let newPuzzle = updatePuzzle(puzzle, word, startCoords, direction); // write word into puzzle
+                let newWords = words.slice(0, i).concat(words.slice(i + 1)) // remove word from array
+                solver(newPuzzle, newWords, startIndex);
             }
         }
     }
 
     if (solutions.length != 1) {
-        console.log("solutions:");
-        console.log(solutions);
-        console.log("Error 1");
+        console.log("Error");
         return;
     }
-
-    // Maybe check some words are not on top of each other?
-    // - sun and sunglasses/suncream must not have same start and direction
-    // - if words must take all available space we're ok
 
     for (let line of solutions[0]) {
         for (let char of line) {
@@ -246,4 +253,12 @@ function crosswordSolver(emptyPuzzle, words) {
     }
 }
 
-crosswordSolver(emptyPuzzle, words);
+crosswordSolver(puzzle, words);
+
+
+// TODO:
+// - validate inputs
+// - automate testing
+// - go through audit questions
+// - are we following good practices (file structure, separation of concerns etc.)?
+// - should we use multiple files?

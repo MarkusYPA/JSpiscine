@@ -66,25 +66,30 @@ function wordFits(puzzle, word, coordinates) {
     // try to fit word in both directions
     for (let direction of ['right', 'down']) {
 
-        // Set multipliers for different directions
+        // multipliers for different directions
         let rowMult = 0;
         let colMult = 0;
         if (direction == 'right') colMult = 1;
         if (direction == 'down') rowMult = 1;
 
         let success = true;
+
+        // try each letter individually
         for (let i = 0; i < word.length; i++) {
             let row = coordinates[0] + i * rowMult;    // changes at 'down'
             let col = coordinates[1] + i * colMult;    // changes at 'right'
 
+            // fail if word goes past edge
             if (row > puzzle.length - 1 || col > puzzle[0].length) {
                 success = false;
                 break;
             }
 
+            // fail if cell value isn't one of the allowed
             let cell = puzzle[row][col];
             if (!(cell == 2 || cell == 1 || cell == 0 || cell == word[i])) {
                 success = false;
+                break;
             }
 
             // save value of cell before word
@@ -106,7 +111,7 @@ function wordFits(puzzle, word, coordinates) {
             }
 
         }
-        // No fit if theres room before or after the word
+        // fail if usable cells before or after word
         if (!(beforeFirst == '.' || beforeFirst == undefined) || !(afterLast == '.' || afterLast == undefined)) {
             success = false;
         }
@@ -115,7 +120,6 @@ function wordFits(puzzle, word, coordinates) {
             directions.push(direction)
         }
     }
-
 
     return directions;
 }

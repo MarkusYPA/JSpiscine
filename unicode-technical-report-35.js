@@ -144,7 +144,6 @@ function format(date, frmt) {
                 out += form;
         }
     }
-
     return out;
 }
 

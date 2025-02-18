@@ -1,4 +1,6 @@
 'use strict';
+/* Array.prototype.reduce = undefined
+Array.prototype.reduceRight = undefined */
 
 function fold(arr, func, acc) {
     for (let e of arr) {
@@ -20,11 +22,11 @@ function reduce(arr, func) {
 }
 
 function reduceRight(arr, func) {
-    return reduce(arr.reverse(), func);
+    return reduce([...arr].reverse(), func);
 }
 
-/* 
-const adder = (a, b) => a + b
+
+/* const adder = (a, b) => a + b
 const ifOdd = (a, b) => (b % 2 === 0 ? a + 2 : a * 2)
 const concatenate = (a = '', b) => a.concat(b)
 const merger = (a, b) => ({ ...a, ...b })
@@ -91,5 +93,4 @@ console.log(JSON.stringify(reduceRight(obj, merger)) == JSON.stringify({
     b: 6,
     c: { d: 2, e: 3 },
     a: 12,
-}))
- */
+})) */

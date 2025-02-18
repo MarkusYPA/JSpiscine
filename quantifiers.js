@@ -1,25 +1,23 @@
 'use strict'
-//Array.prototype.some = Array.prototype.every = undefined
-
-function countFounds(arr, func){
-    let founds = 0;
-    for (const e of arr) {
-        if (func(e)) founds++
-    }
-    return founds
-}
 
 function every(arr, func) {
-    return countFounds(arr, func) == arr.length;
+    for (const e of arr) {
+        if (!func(e)) return false;
+    }
+    return true;
 }
 
 function some(arr, func) {
-    return countFounds(arr, func) > 0;
+    for (const e of arr) {
+        if (func(e)) return true;
+    }
+    return false;
 }
 
 function none(arr, func) {
-    return countFounds(arr, func) == 0;
+    return !some(arr, func);
 }
+
 
 /* const small = [3, 6, 1, 7, 2]
 const mixed = [23, 4, 10, 25, 6]
@@ -41,7 +39,7 @@ console.log(none(big, greaterEq10) == false)
 // the function should not be called more than needed
 let count = 0
 some(big, () => ++count > 2)
-console.log(count, 3)
+console.log("count and three", count, 3)
 
 count = 0
 every(big, () => ++count < 3)
@@ -50,4 +48,3 @@ console.log(count, 3)
 count = 0
 none(big, () => ++count > 2)
 console.log(count, 3) */
-

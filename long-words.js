@@ -1,3 +1,5 @@
+'using strict'
+
 function longWords(arr) {
     return arr.every((ele) => typeof ele == 'string' && ele.length > 4)
 }

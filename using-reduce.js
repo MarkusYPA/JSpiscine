@@ -1,3 +1,5 @@
+'using strict'
+
 function adder(nums, init = 0) {
     return nums.reduce((acc, n) => acc + n, init);
 }

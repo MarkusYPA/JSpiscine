@@ -1,3 +1,5 @@
+'using strict'
+
 function filterShortStateName(strs) {
     return strs.filter((s) => s.length < 7)
 }
@@ -14,7 +16,7 @@ function filterStartVowel(strs) {
 function filter5Vowels(strs) {
     return strs.filter((s) => {
         let founds = 0;
-        for (char of s) {
+        for (let char of s) {
             if (containsVowel(char)) founds++;
         }
         return founds > 4;
@@ -24,7 +26,7 @@ function filter5Vowels(strs) {
 function filter1DistinctVowel(strs) {
     return strs.filter((s) => {
         let vowels = new Map();
-        for (char of s) {
+        for (let char of s) {
             if (containsVowel(char)) vowels.set(String(char).toLowerCase(), true);
         }
         return vowels.size == 1;

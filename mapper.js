@@ -21,8 +21,7 @@ function flatMap(arr, func) {
     return flatArr;
 }
 
-
-const numbers = [10, -10, 20, -95, 86, 102, 35, 89, 110]
+/* const numbers = [10, -10, 20, -95, 86, 102, 35, 89, 110]
 const mixed = [[10], -10, 20, -95, 86, [102], [35, 89], 110]
 const nested = [[5], [4], [-3], [20], [17], [-33], [-4], [18]]
 const sentences = [
@@ -46,7 +45,7 @@ const arrayFormatSentence = (item, index, arr) => {
         return `are ${String(arr.length - 1)} ${item}.`
     }
     return `${item}, `
-}
+} */
 
 // map
 /* console.log(JSON.stringify(map(numbers, add1)))

@@ -1,6 +1,6 @@
 'use strict'
 
-/* function currify(f) {
+function currify(f) {
     const nargs = f.length;  // Number of parameters f expects
     const vargs = [];        // Arguments passed in multiple calls, short for "variable arguments"
 
@@ -9,7 +9,8 @@
         : curried;                      // too few arguments, call again 
 
     return curried;
-}; */
+};
+
 
 function currify(f) {
     const args = [];
@@ -25,11 +26,13 @@ function currify(f) {
     return curried;
 }
 
-/* const mult2 = (el1, el2) => el1 * el2
+
+
+/*const mult2 = (el1, el2) => el1 * el2
 const add3 = (el1, el2, el3) => el1 + el2 + el3
 const sub4 = (el1, el2, el3, el4) => el1 - el2 - el3 - el4
 
-const mult2Curried = currify(mult2)
+/*const mult2Curried = currify(mult2)
 console.log(mult2(2, 2)) // result expected 4
 console.log(mult2Curried(2)(2)) // result expected 4
 

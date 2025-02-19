@@ -1,5 +1,4 @@
 
-// Event listener attached in the global scope
 document.addEventListener('keydown', compose);
 
 function toHex(num) {

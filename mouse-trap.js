@@ -1,14 +1,5 @@
-document.addEventListener('mousedown', createCircle);
 
-document.addEventListener('mouseup', () => {
-    down = false
-    lockX = false;
-    lockY = false;
-});
-
-document.addEventListener('mousemove', moveCircle)
-
-let down = false;
+let oneMade = false;
 let latest;
 let box;
 let inX = false;
@@ -17,10 +8,8 @@ let lockX = false;
 let lockY = false;
 const offset = 25;
 
-function createCircle(ev) {
-    if (ev) {
-        down = true;
-
+function createCircle() {
+    document.addEventListener('click', ev => { // 'mousedown' or 'click'
         let crcl = document.createElement('div');
         crcl.style.background = 'white';
         crcl.classList.add('circle');
@@ -30,30 +19,35 @@ function createCircle(ev) {
         document.body.appendChild(crcl);
 
         latest = crcl;
-    }
+        oneMade = true;
+    });
+
+    document.addEventListener('mouseup', () => {
+        lockX = false;
+        lockY = false;
+    });
 }
 
-function moveCircle(ev) {
-    if (ev && down) {
-        [inX, inY] = wouldBeInsideBox(ev.x, ev.y);
+function moveCircle() {
+    document.addEventListener('mousemove', ev => {
+        if (oneMade) {
+            [inX, inY] = wouldBeInsideBox(ev.x, ev.y);
 
-        if (inX && inY) {
-            latest.style.background = "var(--purple)";
-            lockX = false;
-            lockY = false;
-        } else {
-            if (latest.style.background == "var(--purple)") {
-                lockX = !inX;
-                lockY = !inY;
+            if (inX && inY) {
+                latest.style.background = "var(--purple)";
+                lockX = false;
+                lockY = false;
+            } else {
+                if (latest.style.background == "var(--purple)") {
+                    lockX = !inX;
+                    lockY = !inY;
+                }
             }
-        }
 
-
-        if (down) {
             if (!lockX) latest.style.left = ev.x - offset + 'px';
             if (!lockY) latest.style.top = ev.y - offset + 'px';
         }
-    }
+    });
 }
 
 

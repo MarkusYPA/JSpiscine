@@ -48,7 +48,8 @@ function commaCoordinates(coords) {
 function updateLocationIndicator(locInd, place) {
     locInd.textContent = place.name + '\n' + place.coordinates
     locInd.style.color = place.color
-    let coords = commaCoordinates(place.coordinates)
+    //const coords = commaCoordinates(place.coordinates)    
+    const coords = encodeURI(coordsString);
     locInd.href = 'https://www.google.com/maps?q=' + coords
     locInd.target = '_blank'
 }

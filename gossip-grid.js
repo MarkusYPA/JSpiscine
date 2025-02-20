@@ -36,9 +36,14 @@ function grid() {
     // Old gossips form list
     gossips.forEach((goss) => document.body.appendChild(makeGossip(goss)));
 
+    makeSliders();
+}
+
+function makeSliders(){
     // Three sliders and their parent
     let widthR = document.createElement('input')
     widthR.classList.add('range')
+    widthR.id = 'width'
     widthR.type = 'range'
     widthR.min = '200'
     widthR.max = '800'
@@ -47,6 +52,7 @@ function grid() {
 
     let fontR = document.createElement('input')
     fontR.classList.add('range')
+    fontR.id = 'fontSize'
     fontR.type = 'range'
     fontR.min = '20'
     fontR.max = '40'
@@ -55,6 +61,7 @@ function grid() {
 
     let bgR = document.createElement('input')
     bgR.classList.add('range')
+    bgR.id = 'background'
     bgR.type = 'range'
     bgR.min = '20'
     bgR.max = '75'
@@ -67,8 +74,6 @@ function grid() {
     wrp.appendChild(fontR)
     wrp.appendChild(bgR)
     document.body.appendChild(wrp)
-
-    //console.log(nodes => nodes.map(n => n.textContent))
 }
 
 function setWidths(widthR) {

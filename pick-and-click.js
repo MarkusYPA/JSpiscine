@@ -39,8 +39,10 @@ function pick() {
     const axisY = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     axisX.setAttribute('y1', '0');
     axisX.setAttribute('y2', window.innerHeight);
+    axisX.id = ('axisX');
     axisY.setAttribute('x1', '0');
     axisY.setAttribute('x2', window.innerWidth);
+    axisY.id = ('axisY');
     svg.appendChild(axisX);
     svg.appendChild(axisY);
 

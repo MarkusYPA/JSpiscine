@@ -25,7 +25,7 @@ function slamSections() {
         sec.style.height = window.innerHeight
         // name until first comma, lowercased, dashes
         const urlName = place.name.match(/(\w|\s)*(?=,)/)[0].toLowerCase().replaceAll(' ', '-')
-        sec.style.backgroundImage = 'url(./where-do-we-go_images/' + urlName + '.jpg)'
+        sec.style.background = 'url(./where-do-we-go_images/' + urlName + '.jpg)'
         sec.style.backgroundSize = 'cover'
         sec.style.backgroundPosition = 'center'
         document.body.appendChild(sec)

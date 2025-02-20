@@ -77,8 +77,6 @@ function pick() {
         axisY.setAttribute('y1', y);
         axisY.setAttribute('y2', y);
         axisY.setAttribute('x2', winW);
-
-        console.log(hue, lum, hslString);
     });
 
     document.addEventListener('click', () => {

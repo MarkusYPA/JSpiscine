@@ -12,7 +12,7 @@ function build(amount, count = 1) {
     }
     document.body.appendChild(brick);
 
-    setTimeout(() => build(amount, count + 1), 5) // set to 100 
+    setTimeout(() => build(amount, count + 1), 100) // set to 100 
 }
 
 function repair(...ids) {

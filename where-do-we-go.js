@@ -50,19 +50,20 @@ function updateLocationIndicator(locInd, place) {
     locInd.style.color = place.color
     let coords = commaCoordinates(place.coordinates)
     locInd.href = 'https://www.google.com/maps?q=' + coords
+    locInd.target = '_blank'
 }
 
 // Section height is set to window.innerHeigth
 function getPI() { return Math.round(window.scrollY / window.innerHeight) }
 
-function makeCompass(){
+function makeCompass() {
     let compass = document.createElement('div')
     compass.classList.add('direction')
     compass.textContent = 'S'
     compass.style.left = 90.0 + 'vw';
     compass.style.top = 5.0 + 'vh';
     document.body.appendChild(compass)
-    
+
     return compass;
 }
 
@@ -74,6 +75,7 @@ function explore() {
     // Text that tells where we are
     let locInd = document.createElement('a')
     locInd.classList.add('location')
+    locInd.target = '_blank'
     document.body.appendChild(locInd)
     updateLocationIndicator(locInd, places[placeIndex])
 

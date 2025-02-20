@@ -34,24 +34,11 @@ function slamSections() {
     })
 }
 
-function commaCoordinates(coords) {
-    const numsRegEx = /(\d+\.\d+|\d+|\w)/g;  // `39°56'7.3"N 119°36'1.88"E` into pieces
-    const pieces = coords.match(numsRegEx)
-
-    let lat = Number(pieces[0]) + Number(pieces[1]) / 60 + Number(pieces[2]) / 3600
-    let long = Number(pieces[4]) + Number(pieces[5]) / 60 + Number(pieces[6]) / 3600
-
-    if (pieces[3] == 'S') lat *= -1
-    if (pieces[7] == 'W') long *= -1
-
-    return lat + ',' + long
-}
-
 function updateLocationIndicator(locInd, place) {
     locInd.textContent = place.name + '\n' + place.coordinates
     locInd.style.color = place.color
     //const coords = commaCoordinates(place.coordinates)    
-    const coords = encodeURI(coordsString);
+    const coords = encodeURI(place.coordinates);
     locInd.href = 'https://www.google.com/maps?q=' + coords
     locInd.target = '_blank'
 }
@@ -84,6 +71,8 @@ function explore() {
 
     let compass = makeCompass()
     let prevScroll = 0;
+
+    window.scrollTo(0, window.innerHeight + 200)
 
     document.addEventListener("scroll", () => {
         placeIndex = getPI()

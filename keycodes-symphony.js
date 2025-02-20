@@ -9,8 +9,6 @@ function toHex(num) {
     return out;
 }
 
-
-// Handler function defined in the global scope
 function compose(event) {
     if (event) {
         if (event.key >= 'a' && event.key <= 'z') {

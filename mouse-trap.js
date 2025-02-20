@@ -1,3 +1,13 @@
+document.addEventListener('mousedown', createCircle);
+
+document.addEventListener('mouseup', () => {
+    down = false
+    lockX = false;
+    lockY = false;
+});
+
+document.addEventListener('mousemove', moveCircle)
+
 let down = false;
 let latest;
 let box;
@@ -5,11 +15,10 @@ let inX = false;
 let inY = false;
 let lockX = false;
 let lockY = false;
-
 const offset = 25;
 
-function createCircle() {
-    document.addEventListener('mousedown', ev => { // 'click' would fire at mouse up
+function createCircle(ev) {
+    if (ev) {
         down = true;
 
         let crcl = document.createElement('div');
@@ -21,39 +30,30 @@ function createCircle() {
         document.body.appendChild(crcl);
 
         latest = crcl;
-    });
-
-    document.addEventListener('mouseup', () => {
-        down = false
-        lockX = false;
-        lockY = false;
-    });
+    }
 }
 
-function moveCircle() {
-    document.addEventListener('mousemove', ev => {
+function moveCircle(ev) {
+    if (ev && down) {
+        [inX, inY] = wouldBeInsideBox(ev.x, ev.y);
 
-        if (down) {
-            [inX, inY] = wouldBeInsideBox(ev.x, ev.y);
-
-            if (inX && inY) {
-                latest.style.background = "var(--purple)";
-                lockX = false;
-                lockY = false;
-            } else {
-                if (latest.style.background == "var(--purple)") {
-                    lockX = !inX;
-                    lockY = !inY;
-                }
-            }
-            
-
-            if (down) {
-                if (!lockX) latest.style.left = ev.x - offset + 'px';
-                if (!lockY) latest.style.top = ev.y - offset + 'px';
+        if (inX && inY) {
+            latest.style.background = "var(--purple)";
+            lockX = false;
+            lockY = false;
+        } else {
+            if (latest.style.background == "var(--purple)") {
+                lockX = !inX;
+                lockY = !inY;
             }
         }
-    });
+
+
+        if (down) {
+            if (!lockX) latest.style.left = ev.x - offset + 'px';
+            if (!lockY) latest.style.top = ev.y - offset + 'px';
+        }
+    }
 }
 
 

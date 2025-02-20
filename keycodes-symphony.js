@@ -1,5 +1,4 @@
 
-// Event listener attached in the global scope
 document.addEventListener('keydown', compose);
 
 function toHex(num) {
@@ -16,6 +15,7 @@ function compose(event) {
     if (event) {
         if (event.key >= 'a' && event.key <= 'z') {
             let noteDiv = document.createElement('div')
+            noteDiv.classList.add("note");
             noteDiv.textContent = event.key;
 
             let chCo = String(event.key).charCodeAt(0) - 110; // -13 to 12

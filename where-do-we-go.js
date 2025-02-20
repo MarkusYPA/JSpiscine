@@ -83,7 +83,7 @@ function explore() {
     let compass = makeCompass()
     let prevScroll = 0;
 
-    addEventListener("scroll", () => {
+    document.addEventListener("scroll", () => {
         placeIndex = getPI()
         updateLocationIndicator(locInd, places[placeIndex])
         if (window.scrollY > prevScroll) {

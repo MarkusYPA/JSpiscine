@@ -1,5 +1,7 @@
 import { places } from './where-do-we-go.data.js'
 
+window.history.scrollRestoration = "manual";
+
 function sortPlaces() {
     const latRegEx = /^\d+°\d+'\d+\.\d+"/;    // find the first part of this: `39°56'7.3"N 119°36'1.88"E`
     const numsRegEx = /\d+/g;

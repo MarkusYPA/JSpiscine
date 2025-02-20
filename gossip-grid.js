@@ -25,9 +25,10 @@ function grid() {
     newGoss.classList.add('gossip')
     let textArea = document.createElement('textarea'); // Store a reference
     newGoss.appendChild(textArea);
-    let suBut = document.createElement('input')
+    let suBut = document.createElement('button') // input or button
     suBut.type = 'submit'
-    suBut.value = 'Share gossip!'
+    //suBut.value = 'Share gossip!'
+    suBut.innerHTML = 'Share gossip!';
     newGoss.appendChild(suBut)
     document.body.appendChild(newGoss)
     newGoss.addEventListener('submit', (ev) => sendGossip(ev, textArea, newGoss))
@@ -66,6 +67,8 @@ function grid() {
     wrp.appendChild(fontR)
     wrp.appendChild(bgR)
     document.body.appendChild(wrp)
+
+    //console.log(nodes => nodes.map(n => n.textContent))
 }
 
 function setWidths(widthR) {
@@ -89,5 +92,7 @@ function setBgs(bgR) {
         goss.style.backgroundColor = `hsla(280, 50%, ${bgR.value}%)`;
     });
 }
+
+
 
 export { grid }

@@ -57,11 +57,26 @@ function formatCoords(co) {
 function updateLocationIndicator(locInd, place) {
     locInd.textContent = place.name + '\n' + place.coordinates
     locInd.style.color = place.color
-    //const coords = commaCoordinates(place.coordinates)    
-    //const coords = encodeURI(place.coordinates);
-    const coords = formatCoords(place.coordinates);
-    locInd.href = 'https://www.google.com/maps?q=' + coords
+    //const coords = encodeURI(place.coordinates);  // Not necessary
+    const coords = formatCoords(place.coordinates);    
+    
+    //locInd.href = 'https://www.google.com/maps?q=' + place.coordinates    // Gets converted automatically but not the way the tests like it
+    //locInd.href = 'https://www.google.com/maps?q=' + coords
+    locInd.href = `https://www.google.com/maps/place/${coords}`;    // Force this format
     locInd.target = '_blank'
+
+    // The test
+/*     const testCo = locInd.textContent.split('\n')[1]
+    const testConvUrl = locInd.href
+    .split('%C2%B0')
+    .join('°')
+    .split('%22')
+    .join('"')
+    .split('%20')
+    .join(' ')
+    console.log(testConvUrl.includes(testCo))
+    console.log(testConvUrl, testCo) */
+
 }
 
 // Section height is set to window.innerHeigth

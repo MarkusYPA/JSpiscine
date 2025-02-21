@@ -34,11 +34,32 @@ function slamSections() {
     })
 }
 
+function formatCoords(co) {
+    let result = ''
+    for (const char of co) {
+        switch (char) {
+            case '°':
+                result += '%C2%B0'
+                break
+            case '"':
+                result += '%22'
+                break
+            case ' ':
+                result += '%20'
+                break
+            default:
+                result += char
+        }
+    }
+    return result
+}
+
 function updateLocationIndicator(locInd, place) {
     locInd.textContent = place.name + '\n' + place.coordinates
     locInd.style.color = place.color
     //const coords = commaCoordinates(place.coordinates)    
-    const coords = encodeURI(place.coordinates);
+    //const coords = encodeURI(place.coordinates);
+    const coords = formatCoords(place.coordinates);
     locInd.href = 'https://www.google.com/maps?q=' + coords
     locInd.target = '_blank'
 }
@@ -72,7 +93,7 @@ function explore() {
     let compass = makeCompass()
     let prevScroll = 0;
 
-    window.scrollTo(0, window.innerHeight + 200)
+    //window.scrollTo(0, window.innerHeight + 200)
 
     document.addEventListener("scroll", () => {
         placeIndex = getPI()

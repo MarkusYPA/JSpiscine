@@ -4,7 +4,9 @@ function debounce(func, delay = 0) {
     let timeout;
 
     return function () {
+        // remove any pending timeouts
         clearTimeout(timeout);
+
         timeout = setTimeout(() => func.apply(this, arguments), delay);
     };
 }

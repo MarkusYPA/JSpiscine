@@ -43,8 +43,5 @@ function timeout(delay, callback) {
             callback(...args),
             timeoutPromise
         ]);
-
-
     };
-
 }

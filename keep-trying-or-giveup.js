@@ -31,20 +31,20 @@ function retry(count, callback) {
  */
 function timeout(delay, callback) {
 
-    return async function(...args) {
+    return async function (...args) {
 
-      // Create a promise that rejects after the delay
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('timeout')), delay);
-      });
-  
-      // Race the callback against the timeout
-      return Promise.race([
-        callback(...args),
-        timeoutPromise
-      ]);
-      
+        // Create a promise that only rejects after the delay
+        const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('timeout')), delay);
+        });
+
+        // Race the callback against the timeout
+        return Promise.race([
+            callback(...args),
+            timeoutPromise
+        ]);
+
+
     };
 
-  }
-  
+}

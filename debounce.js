@@ -1,23 +1,31 @@
-function debounce(func, wait = 0){
-    // Create a deb func that delays func every time by wait milliseconds
+function debounce(func, delay = 0) {
+    // delays func every time by delay milliseconds
 
     let timeout;
-    
-    return function(...args) {
+
+    return function () {
         clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
+        timeout = setTimeout(() => func.apply(this, arguments), delay);
     };
 }
 
-function opDebounce(){
-    
+function opDebounce(func, delay, options = {}) {
+    let timer = null;
+    let first = true;
+    const leading = !!options.leading;  // double inversion creates boolean
+
+    return function (...args) {
+        const context = this;
+
+        if (first && leading) {
+            func.apply(context, args);
+            first = false;
+        }
+
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            func.apply(context, args);
+        }, delay);
+    };
 }
-
-
-const log = debounce(() => console.log('Executed!'), 1000);
-
-log();  // Call at T=0ms
-setTimeout(log, 500);  // Call at T=500ms
-setTimeout(log, 1200); // Call at T=1200ms
-
-// "Executed!" will only appear once at ~2200ms, since each call resets the timer.

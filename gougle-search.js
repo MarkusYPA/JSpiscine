@@ -1,3 +1,22 @@
+Promise.myAll = function (values) {
+    return new Promise((resolve, reject) => {
+        let results = [];
+        let completed = 0;
+        values.forEach((singlePromise, index) => {
+            singlePromise
+                .then((res) => {
+                    results[index] = res;
+                    completed++;
+                    if (completed === values.length) resolve(results);
+                })
+                .catch((e) => {
+                    reject(e);
+                });
+        });
+    });
+};
+
+
 /**
  * 
  * @param {string} serverName 

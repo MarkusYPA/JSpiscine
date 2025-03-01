@@ -25,11 +25,11 @@ async function getJSON(path, params) {
             throw new Error(response.statusText)
         }
 
-        const res = await response.json()    
+        const res = await response.json()
         if (res.error) {
             throw new Error(res.error)
         }
-       return res.data        
+        return res.data
     } catch (error) {
         throw error
     }

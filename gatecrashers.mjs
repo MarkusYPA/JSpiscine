@@ -3,7 +3,7 @@ import fs from 'fs/promises'
 import path from 'path'
 
 const port = 5000;
-const guestDir = '.guests'
+const guestDir = './guests'
 
 const authorizedUsers = {
     'Caleb_Squires': 'abracadabra',

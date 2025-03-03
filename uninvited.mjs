@@ -29,6 +29,7 @@ const server = createServer(async (req, res) => {
                 res.end(data);
             }
         });
+        
     } else if (req.method === "POST") {
 
         const fileName = req.url

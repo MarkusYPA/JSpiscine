@@ -33,11 +33,12 @@ const server = createServer(async (req, res) => {
     } else if (req.method === "POST") {
 
         const fileName = req.url
-        let body = "";
+        
 
         // incoming data is a stream, so add listeners with req.on()
 
         // listen for data chunks
+        let body = "";
         req.on("data", (chunk) => {
             body += chunk;
         });
@@ -46,10 +47,10 @@ const server = createServer(async (req, res) => {
         req.on("end", async () => {
             try {
                 // recursive allows for any missing parent directory to be created
-                await mkdir(guestsDir, { recursive: true });
+                //await mkdir(guestsDir, { recursive: true });
 
                 const filePath = join(guestsDir, `${fileName}.json`);
-                await writeFile(filePath, body, { flag: "w" });
+                await writeFile(filePath, body, 'utf-8');
 
                 res.writeHead(201, { "Content-Type": "application/json" });
                 res.end(body);
